@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace WpfHello
 {
@@ -8,10 +9,9 @@ namespace WpfHello
     public partial class MainWindow : Window
     {
         bool isDataDirty = false;
-        private readonly string nameFile = "username.txt";
-        public MyWindow myWin
-        { get; set; }
+        string nameFile = "username.txt";
 
+        public MyWindow myWin { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -21,19 +21,6 @@ namespace WpfHello
             Top = 25;
             Left = 25;
         }
-
-
-        //private void setBut_Click(object sender, RoutedEventArgs e)
-        //{
-        //    SetBut();
-
-        //}
-
-        //private void retBut_Click(object sender, RoutedEventArgs e)
-        //{
-        //    RetBut();
-        //}
-
         private void SetBut()
         {
             try
@@ -62,7 +49,7 @@ namespace WpfHello
                     text = sr.ReadToEnd();
                 }
 
-                retLabel.Content = "Приветствую Вас, \n"+
+                retLabel.Content = "Приветствую Вас, \n" +
                                     "уважаемый " + text;
             }
             catch (Exception ex)
@@ -70,15 +57,55 @@ namespace WpfHello
                 MessageBox.Show(ex.Message);
             }
         }
+        //private void setBut_Click(object sender, RoutedEventArgs e)
+        //{
+        //    System.IO.StreamWriter sw = null;
+        //    try
+        //    {
+        //        sw = new System.IO.StreamWriter("username.txt");
+        //        sw.WriteLine(setText.Text);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        if (sw != null)
+        //            sw.Close();
+        //    }
 
-        private void setText_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        //    isDataDirty = false;
+        //    retBut.IsEnabled = true;
+        //}
+
+        //private void retBut_Click(object sender, RoutedEventArgs e)
+        //{
+        //    System.IO.StreamReader sr = null;
+        //    try
+        //    {
+        //        using (sr = new System.IO.StreamReader("username.txt"))
+        //            retLabel.Content = "Приветствую Вас,\n" +
+        //                "уважаемый " + sr.ReadToEnd();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        if (sr != null)
+        //            sr.Close();
+        //    }
+        //}
+
+        private void setText_TextChanged(object sender, TextChangedEventArgs e)
         {
             setBut.IsEnabled = true;
             isDataDirty = true;
-
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
         {
             {
                 if (this.isDataDirty)
@@ -91,22 +118,18 @@ namespace WpfHello
                         e.Cancel = true;
                     }
                 }
-
             }
         }
-
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void New_Win_Click(object sender, RoutedEventArgs e)
+        private void New_Win_Click_1(object sender, RoutedEventArgs e)
         {
             if (myWin == null)
                 myWin = new MyWindow();
             myWin.Owner = this;
-            //myWin.Top = this.Top;
-            //myWin.Left = this.Left + this.Width;
             var location = New_Win.PointToScreen(new Point(0, 0));
             myWin.Left = location.X + New_Win.Width;
             myWin.Top = location.Y;
@@ -134,5 +157,6 @@ namespace WpfHello
                 MessageBox.Show(ex.Message);
             }
         }
+
     }
 }
