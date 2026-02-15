@@ -1,4 +1,16 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace WpfHello
 {
@@ -7,13 +19,12 @@ namespace WpfHello
     /// </summary>
     public partial class MyWindow : Window
     {
-        private bool _close;
         MainWindow wnd1 = null;
+        private bool _close;
         public MyWindow()
         {
             InitializeComponent();
         }
-
         public new void Close()
         {
             _close = true;
@@ -26,6 +37,10 @@ namespace WpfHello
             e.Cancel = true;
             Hide();
         }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            wnd1.myWin = null;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -34,17 +49,13 @@ namespace WpfHello
             {
                 wnd1.txtBlock.Text = textBox.Text;
                 PrintLogFile();
+
             }
             Close();
         }
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            wnd1.myWin = null;
-        }
-
         private void PrintLogFile()
         {
-            using (System.IO.StreamWriter writer = new System.IO.StreamWriter("log.txt",true))
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter("log.txt", true))
             {
                 writer.WriteLine("Внесено {0}: {1} ", textBox.Text,
                DateTime.Now.ToShortDateString() + ", время: " +

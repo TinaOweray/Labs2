@@ -1,4 +1,13 @@
-﻿using System.Windows;
+﻿using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace WpfHello
 {
@@ -8,9 +17,8 @@ namespace WpfHello
     public partial class MainWindow : Window
     {
         bool isDataDirty = false;
-        public MyWindow myWin 
-        { get; set; }
 
+        public MyWindow myWin { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -20,8 +28,6 @@ namespace WpfHello
             Top = 25;
             Left = 25;
         }
-
-
         private void setBut_Click(object sender, RoutedEventArgs e)
         {
             System.IO.StreamWriter sw = null;
@@ -39,10 +45,9 @@ namespace WpfHello
                 if (sw != null)
                     sw.Close();
             }
-            retBut.IsEnabled = true;
 
             isDataDirty = false;
-
+            retBut.IsEnabled = true;
         }
 
         private void retBut_Click(object sender, RoutedEventArgs e)
@@ -51,7 +56,8 @@ namespace WpfHello
             try
             {
                 using (sr = new System.IO.StreamReader("username.txt"))
-                    retLabel.Content = "Приветствую Вас, уважаемый " + sr.ReadToEnd();
+                    retLabel.Content = "Приветствую Вас,\n" +
+                        "уважаемый " + sr.ReadToEnd();
             }
             catch (Exception ex)
             {
@@ -64,14 +70,13 @@ namespace WpfHello
             }
         }
 
-        private void setText_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void setText_TextChanged(object sender, TextChangedEventArgs e)
         {
             setBut.IsEnabled = true;
             isDataDirty = true;
-
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
         {
             {
                 if (this.isDataDirty)
@@ -84,10 +89,8 @@ namespace WpfHello
                         e.Cancel = true;
                     }
                 }
-
             }
         }
-
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -98,8 +101,6 @@ namespace WpfHello
             if (myWin == null)
                 myWin = new MyWindow();
             myWin.Owner = this;
-            //myWin.Top = this.Top;
-            //myWin.Left = this.Left + this.Width;
             var location = New_Win.PointToScreen(new Point(0, 0));
             myWin.Left = location.X + New_Win.Width;
             myWin.Top = location.Y;
