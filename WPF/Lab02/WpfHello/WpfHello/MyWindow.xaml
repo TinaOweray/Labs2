@@ -5,10 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHello"
         mc:Ignorable="d"
-        Title="MyWindow" Height="450" Width="800" Closed="Window_Closed">
+        Title="MyWindow" 
+        Height="250" 
+        Width="200" 
+        Closing="Window_Closing_1"
+        Closed="Window_Closed">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="107,88,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="204,89,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120" Height="80"/>
+        <Button 
+            Content="Button" 
+            HorizontalAlignment="Left" 
+            Margin="20,31,0,0" 
+            VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBox x:Name="textBox"
+            HorizontalAlignment="Center" 
+                 Height="80" Margin="0,79,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="120"/>
 
     </Grid>
 </Window>
